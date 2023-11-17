@@ -19,7 +19,7 @@ public class Tuto1 extends AreaGame {
     public boolean begin(Window window, FileSystem fileSystem) {
         if (super.begin(window, fileSystem)) {
             createAreas();
-            this.setCurrentArea("zelda/Ferme", true);
+            this.setCurrentArea("zelda/Village", true);
             return true;
         } else return false;
     }

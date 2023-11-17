@@ -7,7 +7,7 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 import javax.annotation.processing.Generated;
-import java.awt.*;
+import java.awt.Color;
 
 public class SimpleGhost extends Entity {
 
@@ -19,26 +19,28 @@ public class SimpleGhost extends Entity {
         super(position);
         this.sprite = new Sprite(spriteName, 1f, 1f, this);
         this.hp = 10;
-        this.hpText = new TextGraphics(Integer.toString((int) this.hp), 0.4f, Color.BLUE);
+        this.hpText = new TextGraphics(Integer.toString((int) this.hp), 0.4f, Color.WHITE);
         this.hpText.setParent(this);
         this.hpText.setAnchor(new Vector(-0.3f, 0.1f));
     }
 
+    @Override
     public void draw(Canvas canvas) {
         this.hpText.draw(canvas);
         this.sprite.draw(canvas);
     }
 
     public void update(float deltaTime) {
-        hp -= deltaTime;
-        hpText = new TextGraphics(Integer.toString((int) hp), 0.4f, Color.BLUE);
+        hp-=deltaTime;
+        if (this.isWeak()) this.strengthen();
+        hpText.setText(Integer.toString((int) hp));
     }
 
-    boolean isWeak() {
+    public boolean isWeak() {
         return this.hp <= 0;
     }
 
-    void strengthen() {
+    public void strengthen() {
         this.hp = 10;
     }
 
