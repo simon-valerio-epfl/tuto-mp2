@@ -31,8 +31,8 @@ public class SimpleGhost extends Entity {
     }
 
     public void update(float deltaTime) {
-        hp-=deltaTime;
-        if (this.isWeak()) this.strengthen();
+        hp -= deltaTime;
+        if (this.isWeak()) hp = 0;
         hpText.setText(Integer.toString((int) hp));
     }
 
@@ -43,5 +43,23 @@ public class SimpleGhost extends Entity {
     public void strengthen() {
         this.hp = 10;
     }
+
+    public void moveUp(float deltaTime) {
+        setCurrentPosition(getPosition().add(0.f, deltaTime));
+    }
+
+    public void moveDown(float deltaTime) {
+        setCurrentPosition(getPosition().add(0.f, -deltaTime));
+    }
+
+    public void moveLeft(float deltaTime) {
+        setCurrentPosition(getPosition().add(-deltaTime, 0.f));
+    }
+
+    public void moveRight(float deltaTime) {
+        setCurrentPosition(getPosition().add(deltaTime, 0.f));
+    }
+
+
 
 }
