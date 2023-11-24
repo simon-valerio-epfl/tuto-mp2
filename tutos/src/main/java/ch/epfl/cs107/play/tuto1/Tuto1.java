@@ -72,16 +72,13 @@ public class Tuto1 extends AreaGame {
 
         if (this.getCurrentArea().getTitle().equals("zelda/Ferme")) {
             this.setCurrentArea("zelda/Village", false);
-            this.getCurrentArea().registerActor(this.player);
-            this.getCurrentArea().setViewCandidate(this.player);
-            this.player.strengthen();
         } else if (this.getCurrentArea().getTitle().equals("zelda/Village")) {
-            this.getCurrentArea().unregisterActor(this.player);
             this.setCurrentArea("zelda/Ferme", false);
-            this.getCurrentArea().registerActor(this.player);
-            this.getCurrentArea().setViewCandidate(this.player);
-            this.player.strengthen();
         }
+
+        this.getCurrentArea().registerActor(this.player);
+        this.getCurrentArea().setViewCandidate(this.player);
+        this.player.strengthen();
     }
 
     public String getTitle() {

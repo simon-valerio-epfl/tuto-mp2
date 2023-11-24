@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.tuto1.area.maps;
 
 import ch.epfl.cs107.play.engine.actor.Background;
+import ch.epfl.cs107.play.engine.actor.Foreground;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.tuto1.actor.SimpleGhost;
 import ch.epfl.cs107.play.tuto1.area.SimpleArea;
@@ -14,6 +15,7 @@ public class Village extends SimpleArea {
         this.registerActor(ghost);
 
         this.registerActor(new Background(this));
+        this.registerActor(new Foreground(this));
     }
 
     @Override
