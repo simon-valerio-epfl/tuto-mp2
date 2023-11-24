@@ -28,12 +28,11 @@ public class Tuto2Cell extends Cell {
 
     @Override
     protected boolean canLeave(Interactable entity) {
-        return this.type.isWalkable;
+        return true;
     }
 
     @Override
     protected boolean canEnter(Interactable entity) {
-        System.out.println(this.type.isWalkable);
         return this.type.isWalkable;
     }
 }

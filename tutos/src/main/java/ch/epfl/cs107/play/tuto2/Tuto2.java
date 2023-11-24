@@ -27,17 +27,14 @@ public class Tuto2 extends AreaGame {
         if (super.begin(window, fileSystem)) {
             createAreas();
             this.setCurrentArea("zelda/Ferme", true);
-            GhostPlayer player = new GhostPlayer(this.getCurrentArea(), Orientation.DOWN, new DiscreteCoordinates(2, 1), "ghost.2");
-            this.player = player;
+            this.player = new GhostPlayer(this.getCurrentArea(), Orientation.DOWN, new DiscreteCoordinates(2, 10), "ghost.2");
             player.enterArea(this.getCurrentArea(), new DiscreteCoordinates(2, 10));
-            //System.out.println(this.getCurrentArea().registeredActors.contains(player));
-            this.getCurrentArea().setViewCandidate(player);
             return true;
         } else return false;
     }
 
     public void switchArea () {
-        this.player.leaveArea(this.getCurrentArea());
+        this.player.leaveArea();
 
         if (this.getCurrentArea().getTitle().equals("zelda/Ferme")) {
             this.setCurrentArea("zelda/Village", false);
@@ -47,7 +44,6 @@ public class Tuto2 extends AreaGame {
             this.player.enterArea(this.getCurrentArea(), new DiscreteCoordinates(2, 10));
         }
 
-        this.getCurrentArea().setViewCandidate(this.player);
         this.player.strengthen();
     }
 

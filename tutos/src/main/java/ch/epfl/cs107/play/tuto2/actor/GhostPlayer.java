@@ -23,6 +23,8 @@ public class GhostPlayer extends MovableAreaEntity {
     private float hp;
     private TextGraphics hpText;
 
+    private final static int ANIMATION_DURATION = 8;
+
     public GhostPlayer (Area area, Orientation orientation, DiscreteCoordinates coordinates, String spriteName) {
         super(area, orientation, coordinates);
         this.sprite = new Sprite(spriteName, 1f, 1f, this);
@@ -30,6 +32,7 @@ public class GhostPlayer extends MovableAreaEntity {
         this.hpText = new TextGraphics(Integer.toString((int) this.hp), 0.4f, Color.WHITE);
         this.hpText.setParent(this);
         this.hpText.setAnchor(new Vector(-0.3f, 0.1f));
+        resetMotion();
     }
 
     @Override
@@ -39,12 +42,14 @@ public class GhostPlayer extends MovableAreaEntity {
 
     public void enterArea (Area area, DiscreteCoordinates coordinates) {
         area.registerActor(this);
+        area.setViewCandidate(this);
+        setOwnerArea(area);
         setCurrentPosition(new Vector(coordinates.x, coordinates.y));
         resetMotion();
     }
 
-    public void leaveArea (Area area) {
-        area.unregisterActor(this);
+    public void leaveArea () {
+        getOwnerArea().unregisterActor(this);
     }
 
     @Override
@@ -77,6 +82,15 @@ public class GhostPlayer extends MovableAreaEntity {
         setCurrentPosition(getPosition().add(deltaTime, 0.f));
     }
 
+    public void moveIfKeyPressed (Orientation orientation, Button b) {
+        if (b.isDown()) {
+            if (!this.isDisplacementOccurs()) {
+                this.orientate(orientation);
+                this.move(ANIMATION_DURATION);
+            }
+        }
+    }
+
     public void update(float deltaTime) {
 
         hp -= deltaTime;
@@ -89,34 +103,10 @@ public class GhostPlayer extends MovableAreaEntity {
         Button leftKey = keyboard.get(Keyboard.LEFT);
         Button rightKey = keyboard.get(Keyboard.RIGHT);
 
-        if (upKey.isDown()) {
-            if (this.getOrientation() == Orientation.UP) {
-                moveUp(deltaTime);
-            } else {
-                this.orientate(Orientation.UP);
-            }
-        }
-        else if (downKey.isDown()) {
-            if (this.getOrientation() == Orientation.DOWN) {
-                moveDown(deltaTime);
-            } else {
-                this.orientate(Orientation.DOWN);
-            }
-        }
-        else if (leftKey.isDown()) {
-            if (this.getOrientation() == Orientation.LEFT) {
-                moveLeft(deltaTime);
-            } else {
-                this.orientate(Orientation.LEFT);
-            }
-        }
-        else if (rightKey.isDown()) {
-            if (this.getOrientation() == Orientation.RIGHT) {
-                moveRight(deltaTime);
-            } else {
-                this.orientate(Orientation.RIGHT);
-            }
-        }
+        moveIfKeyPressed(Orientation.UP, upKey);
+        moveIfKeyPressed(Orientation.DOWN, downKey);
+        moveIfKeyPressed(Orientation.LEFT, leftKey);
+        moveIfKeyPressed(Orientation.RIGHT, rightKey);
 
         super.update(deltaTime);
     }
@@ -128,12 +118,12 @@ public class GhostPlayer extends MovableAreaEntity {
 
     @Override
     public boolean isCellInteractable() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isViewInteractable() {
-        return false;
+        return true;
     }
 
     @Override
