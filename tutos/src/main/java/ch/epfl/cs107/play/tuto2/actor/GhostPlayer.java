@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.tuto2.actor;
 
 import ch.epfl.cs107.play.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.areagame.area.Area;
+import ch.epfl.cs107.play.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.engine.actor.Sprite;
 import ch.epfl.cs107.play.engine.actor.TextGraphics;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -116,7 +117,27 @@ public class GhostPlayer extends MovableAreaEntity {
                 this.orientate(Orientation.RIGHT);
             }
         }
+
         super.update(deltaTime);
     }
 
+    @Override
+    public void acceptInteraction(AreaInteractionVisitor v, boolean isCellInteraction) {
+
+    }
+
+    @Override
+    public boolean isCellInteractable() {
+        return false;
+    }
+
+    @Override
+    public boolean isViewInteractable() {
+        return false;
+    }
+
+    @Override
+    public boolean takeCellSpace() {
+        return true;
+    }
 }
