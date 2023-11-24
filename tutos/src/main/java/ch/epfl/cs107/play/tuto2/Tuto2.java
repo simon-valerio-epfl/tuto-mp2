@@ -5,6 +5,8 @@ import ch.epfl.cs107.play.engine.actor.TextGraphics;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.tuto2.area.maps.Ferme;
 import ch.epfl.cs107.play.tuto2.area.maps.Village;
+import ch.epfl.cs107.play.window.Button;
+import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
 import java.awt.*;
@@ -32,7 +34,6 @@ public class Tuto2 extends AreaGame {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-
     }
 
     public String getTitle() {
