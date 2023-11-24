@@ -47,7 +47,6 @@ public class Tuto2 extends AreaGame {
             this.player.enterArea(this.getCurrentArea(), new DiscreteCoordinates(2, 10));
         }
 
-        this.getCurrentArea().registerActor(this.player);
         this.getCurrentArea().setViewCandidate(this.player);
         this.player.strengthen();
     }
